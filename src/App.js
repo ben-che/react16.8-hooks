@@ -34,7 +34,6 @@ const App = () => {
 									})
 									.then((jsonPage) => {
 										data.push(...jsonPage.Search);
-										// console.log(data);
 									})
 							);
 						}
@@ -51,8 +50,6 @@ const App = () => {
 		});
 		return movies;
 	};
-
-	fetchMovies();
 
 	// useEffect is componentDidMount, componentWillUnmount AND
 	//  componentDidUpdate in 1; traditionally, if we wanted to make a get request
@@ -75,13 +72,17 @@ const App = () => {
 	// the initial state on component mount will be true - allowing us
 	//  the first set of get requests:
 	const [getData, triggerGetData] = useState(true);
-
+	fetchMovies();
 	// rendering movies
 	const renderMovieInfo = () => {
 		if (movies.length > 1) {
-			return movies.map((movie) => {
-				console.log(movie);
-				// return <div><p></p></div>
+			return movies.map((movie, i) => {
+				return (
+					<div key={i + movie.Year + movie.Name}>
+						<p>Title: {movie.Title}</p>
+						<p>Year: {movie.Year}</p>
+					</div>
+				);
 			});
 		}
 	};
