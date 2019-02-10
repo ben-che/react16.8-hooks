@@ -17,8 +17,8 @@ const App = () => {
 		let fetches = [];
 		let data = [];
 
-		useEffect(() => {
-			if (getData) {
+		useEffect(
+			() => {
 				fetch(baseUrl + inputText)
 					// find total pages - each page has 10 results
 					.then((res) => {
@@ -46,8 +46,13 @@ const App = () => {
 					// update once more to ensure we don't continually keep making requests
 					.then(triggerGetData(false))
 					.catch((e) => console.log(e));
-			}
-		});
+			},
+			// useEffect also takes an array of data, in addition to a function - this
+			//    is known as "dependencies" and useEffect will only be called if something
+			//    from this list changes
+			// only trigger useEffect if getData changes
+			[getData]
+		);
 		return movies;
 	};
 
